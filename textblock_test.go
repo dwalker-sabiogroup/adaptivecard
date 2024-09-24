@@ -14,7 +14,6 @@ func TestTextBlockDefault(t *testing.T) {
 	assert.Equal(t, "test", tb.Text)
 	assert.Equal(t, "TextBlock", tb.Type)
 	assert.Equal(t, adaptivecard.BlockElementHeightAuto, tb.Height)
-	assert.Equal(t, adaptivecard.BlockElementHeightAuto, tb.Height)
 	assert.Equal(t, adaptivecard.ColorDefault, tb.Color)
 	assert.Equal(t, adaptivecard.FontSizeDefault, tb.Size)
 	assert.Equal(t, adaptivecard.FontTypeDefault, tb.FontType)
@@ -27,10 +26,26 @@ func TestTextBlockDefault(t *testing.T) {
 	assert.Zero(t, tb.MaxLines)
 }
 
-func TestTextBlockOptions(t *testing.T) {
-	tb := adaptivecard.NewTextBlock("test",
-		adaptivecard.WithColor(adaptivecard.ColorAccent),
+func TestWithTextBlockColor(t *testing.T) {
+	assert.Equal(t, adaptivecard.ColorAccent, adaptivecard.NewTextBlock("test",
+		adaptivecard.WithTextBlockColor(adaptivecard.ColorAccent)).Color,
 	)
+}
 
-	assert.Equal(t, adaptivecard.ColorAccent, tb.Color)
+func TestWithTextBlockFontType(t *testing.T) {
+	assert.Equal(t, adaptivecard.FontTypeMonospace, adaptivecard.NewTextBlock("test",
+		adaptivecard.WithTextBlockFontType(adaptivecard.FontTypeMonospace)).FontType,
+	)
+}
+
+func TestWithTextBlockHorizontalAlignment(t *testing.T) {
+	assert.Equal(t, adaptivecard.HorizontalAlignmentRight, adaptivecard.NewTextBlock("test",
+		adaptivecard.WithTextBlockHorizontalAlignment(adaptivecard.HorizontalAlignmentRight)).HorizontalAlignment,
+	)
+}
+
+func TestWithTextBlockSubtle(t *testing.T) {
+	assert.True(t, adaptivecard.NewTextBlock("test",
+		adaptivecard.WithTextBlockSubtle()).IsSubtle,
+	)
 }

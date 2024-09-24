@@ -33,8 +33,26 @@ func NewTextBlock(text string, opts ...func(*TextBlock)) *TextBlock {
 	return t
 }
 
-func WithColor(c Color) func(*TextBlock) {
+func WithTextBlockColor(c Color) func(*TextBlock) {
 	return func(t *TextBlock) {
 		t.Color = c
+	}
+}
+
+func WithTextBlockFontType(f FontType) func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.FontType = f
+	}
+}
+
+func WithTextBlockHorizontalAlignment(h HorizontalAlignment) func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.HorizontalAlignment = h
+	}
+}
+
+func WithTextBlockSubtle() func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.IsSubtle = true
 	}
 }
