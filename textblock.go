@@ -56,3 +56,63 @@ func WithTextBlockSubtle() func(*TextBlock) {
 		t.IsSubtle = true
 	}
 }
+
+func WithTextBlockMaxLines(i int) func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.MaxLines = i
+	}
+}
+
+func WithTextBlockFontSize(fs FontSize) func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.Size = fs
+	}
+}
+
+func WithTextBlockFontWeight(fw FontWeight) func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.Weight = fw
+	}
+}
+
+func WithTextBlockWrap() func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.Wrap = true
+	}
+}
+
+func WithTextBlockStyle(ts TextBlockStyle) func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.Style = ts
+	}
+}
+
+func WithTextBlockHeight(bh BlockElementHeight) func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.Height = bh
+	}
+}
+
+func WithTextBlockSeparator() func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.Separator = true
+	}
+}
+
+func WithTextBlockSpacing(s Spacing) func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.Spacing = s
+	}
+}
+
+func WithTextBlockID(s string) func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.ID = s
+	}
+}
+
+func WithTextBlockNotVisible() func(*TextBlock) {
+	return func(t *TextBlock) {
+		t.IsVisible = false
+	}
+}

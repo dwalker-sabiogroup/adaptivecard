@@ -5,6 +5,7 @@ import (
 
 	"github.com/dwalker-sabiogroup/adaptivecard"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestFontSize(t *testing.T) {
@@ -21,5 +22,12 @@ func TestFontSize(t *testing.T) {
 
 	for _, tc := range tests {
 		assert.Equal(t, tc.output, tc.input.String())
+		assert.True(t, tc.input.IsAFontSize())
+
+		out, err := tc.input.MarshalJSON()
+
+		require.NoError(t, err)
+		assert.Equal(t, `"`+tc.output+`"`, string(out))
+
 	}
 }

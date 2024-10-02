@@ -5,6 +5,7 @@ import (
 
 	"github.com/dwalker-sabiogroup/adaptivecard"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestColor(t *testing.T) {
@@ -23,5 +24,10 @@ func TestColor(t *testing.T) {
 
 	for _, tc := range tests {
 		assert.Equal(t, tc.output, tc.input.String())
+
+		out, err := tc.input.MarshalJSON()
+
+		require.NoError(t, err)
+		assert.Equal(t, `"`+tc.output+`"`, string(out))
 	}
 }

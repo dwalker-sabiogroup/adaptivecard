@@ -8,13 +8,15 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestBlockElementHeight(t *testing.T) {
+func TestSelectAciton(t *testing.T) {
 	tests := []struct {
-		input  adaptivecard.BlockElementHeight
+		input  adaptivecard.SelectAction
 		output string
 	}{
-		{input: adaptivecard.BlockElementHeightAuto, output: "auto"},
-		{input: adaptivecard.BlockElementHeightStretch, output: "stretch"},
+		{input: adaptivecard.SelectActionExecute, output: "Action.Execute"},
+		{input: adaptivecard.SelectActionOpenURL, output: "Action.OpenUrl"},
+		{input: adaptivecard.SelectActionSubmit, output: "Action.Submit"},
+		{input: adaptivecard.SelectActionToggleVisibility, output: "Action.ToggleVisibility"},
 	}
 
 	for _, tc := range tests {

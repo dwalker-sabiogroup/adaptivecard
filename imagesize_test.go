@@ -8,13 +8,16 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestBlockElementHeight(t *testing.T) {
+func TestImageSize(t *testing.T) {
 	tests := []struct {
-		input  adaptivecard.BlockElementHeight
+		input  adaptivecard.ImageSize
 		output string
 	}{
-		{input: adaptivecard.BlockElementHeightAuto, output: "auto"},
-		{input: adaptivecard.BlockElementHeightStretch, output: "stretch"},
+		{input: adaptivecard.ImageSizeAuto, output: "auto"},
+		{input: adaptivecard.ImageSizeStretch, output: "stretch"},
+		{input: adaptivecard.ImageSizeSmall, output: "small"},
+		{input: adaptivecard.ImageSizeMedium, output: "medium"},
+		{input: adaptivecard.ImageSizeLarge, output: "large"},
 	}
 
 	for _, tc := range tests {
