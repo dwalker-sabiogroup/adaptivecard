@@ -1,6 +1,7 @@
 package adaptivecard_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/dwalker-sabiogroup/adaptivecard"
@@ -24,5 +25,20 @@ func TestImageStyle(t *testing.T) {
 
 		require.NoError(t, err)
 		assert.Equal(t, `"`+tc.output+`"`, string(out))
+
+		is, err := adaptivecard.ImageStyleString(tc.output)
+		require.NoError(t, err)
+		assert.Equal(t, tc.input, is)
+
+		is, err = adaptivecard.ImageStyleString(strings.ToUpper(tc.output))
+		require.NoError(t, err)
+		assert.Equal(t, tc.input, is)
+		assert.True(t, is.IsAImageStyle())
 	}
+
+	_, err := adaptivecard.ImageStyleString("fake")
+	require.Error(t, err)
+
+	assert.ElementsMatch(t, adaptivecard.ImageStyleValues(), []adaptivecard.ImageStyle{adaptivecard.ImageStyleDefault, adaptivecard.ImageStylePerson})
+	assert.ElementsMatch(t, adaptivecard.ImageStyleStrings(), []string{"person", "default"})
 }

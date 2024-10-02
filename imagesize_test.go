@@ -1,6 +1,7 @@
 package adaptivecard_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/dwalker-sabiogroup/adaptivecard"
@@ -27,5 +28,20 @@ func TestImageSize(t *testing.T) {
 
 		require.NoError(t, err)
 		assert.Equal(t, `"`+tc.output+`"`, string(out))
+
+		is, err := adaptivecard.ImageSizeString(tc.output)
+		require.NoError(t, err)
+		assert.Equal(t, tc.input, is)
+
+		is, err = adaptivecard.ImageSizeString(strings.ToUpper(tc.output))
+		require.NoError(t, err)
+		assert.Equal(t, tc.input, is)
+		assert.True(t, is.IsAImageSize())
 	}
+
+	_, err := adaptivecard.ImageSizeString("fake")
+	require.Error(t, err)
+
+	assert.ElementsMatch(t, adaptivecard.ImageSizeValues(), []adaptivecard.ImageSize{adaptivecard.ImageSizeAuto, adaptivecard.ImageSizeStretch, adaptivecard.ImageSizeSmall, adaptivecard.ImageSizeMedium, adaptivecard.ImageSizeLarge})
+	assert.ElementsMatch(t, adaptivecard.ImageSizeStrings(), []string{"auto", "small", "medium", "large", "stretch"})
 }

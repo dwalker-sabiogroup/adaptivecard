@@ -1,6 +1,7 @@
 package adaptivecard_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/dwalker-sabiogroup/adaptivecard"
@@ -25,5 +26,20 @@ func TestFontWeight(t *testing.T) {
 
 		require.NoError(t, err)
 		assert.Equal(t, `"`+tc.output+`"`, string(out))
+
+		ft, err := adaptivecard.FontWeightString(tc.output)
+		require.NoError(t, err)
+		assert.Equal(t, tc.input, ft)
+
+		ft, err = adaptivecard.FontWeightString(strings.ToUpper(tc.output))
+		require.NoError(t, err)
+		assert.Equal(t, tc.input, ft)
+		assert.True(t, ft.IsAFontWeight())
 	}
+
+	_, err := adaptivecard.FontWeightString("fake")
+	require.Error(t, err)
+
+	assert.ElementsMatch(t, adaptivecard.FontWeightValues(), []adaptivecard.FontWeight{adaptivecard.FontWeightDefault, adaptivecard.FontWeightLighter, adaptivecard.FontWeightBolder})
+	assert.ElementsMatch(t, adaptivecard.FontWeightStrings(), []string{"lighter", "default", "bolder"})
 }

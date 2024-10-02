@@ -1,6 +1,7 @@
 package adaptivecard_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/dwalker-sabiogroup/adaptivecard"
@@ -29,5 +30,20 @@ func TestSpacing(t *testing.T) {
 
 		require.NoError(t, err)
 		assert.Equal(t, `"`+tc.output+`"`, string(out))
+
+		s, err := adaptivecard.SpacingString(tc.output)
+		require.NoError(t, err)
+		assert.Equal(t, tc.input, s)
+
+		s, err = adaptivecard.SpacingString(strings.ToUpper(tc.output))
+		require.NoError(t, err)
+		assert.Equal(t, tc.input, s)
+		assert.True(t, s.IsASpacing())
 	}
+
+	_, err := adaptivecard.SpacingString("fake")
+	require.Error(t, err)
+
+	assert.ElementsMatch(t, adaptivecard.SpacingValues(), []adaptivecard.Spacing{adaptivecard.SpacingDefault, adaptivecard.SpacingNone, adaptivecard.SpacingSmall, adaptivecard.SpacingMedium, adaptivecard.SpacingLarge, adaptivecard.SpacingExtraLarge, adaptivecard.SpacingPadding})
+	assert.ElementsMatch(t, adaptivecard.SpacingStrings(), []string{"none", "default", "small", "medium", "large", "extraLarge", "padding"})
 }

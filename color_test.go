@@ -1,6 +1,7 @@
 package adaptivecard_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/dwalker-sabiogroup/adaptivecard"
@@ -29,5 +30,20 @@ func TestColor(t *testing.T) {
 
 		require.NoError(t, err)
 		assert.Equal(t, `"`+tc.output+`"`, string(out))
+
+		c, err := adaptivecard.ColorString(tc.output)
+		require.NoError(t, err)
+		assert.Equal(t, tc.input, c)
+
+		c, err = adaptivecard.ColorString(strings.ToUpper(tc.output))
+		require.NoError(t, err)
+		assert.Equal(t, tc.input, c)
+		assert.True(t, c.IsAColor())
 	}
+
+	_, err := adaptivecard.ColorString("fake")
+	require.Error(t, err)
+
+	assert.ElementsMatch(t, adaptivecard.ColorValues(), []adaptivecard.Color{adaptivecard.ColorDefault, adaptivecard.ColorDark, adaptivecard.ColorLight, adaptivecard.ColorAccent, adaptivecard.ColorGood, adaptivecard.ColorWarning, adaptivecard.ColorAttention})
+	assert.ElementsMatch(t, adaptivecard.ColorStrings(), []string{"dark", "default", "light", "accent", "good", "warning", "attention"})
 }

@@ -1,6 +1,7 @@
 package adaptivecard_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/dwalker-sabiogroup/adaptivecard"
@@ -24,5 +25,20 @@ func TestBlockElementHeight(t *testing.T) {
 
 		require.NoError(t, err)
 		assert.Equal(t, `"`+tc.output+`"`, string(out))
+
+		beh, err := adaptivecard.BlockElementHeightString(tc.output)
+		require.NoError(t, err)
+		assert.Equal(t, tc.input, beh)
+
+		beh, err = adaptivecard.BlockElementHeightString(strings.ToUpper(tc.output))
+		require.NoError(t, err)
+		assert.Equal(t, tc.input, beh)
+		assert.True(t, beh.IsABlockElementHeight())
 	}
+
+	_, err := adaptivecard.BlockElementHeightString("fake")
+	require.Error(t, err)
+
+	assert.ElementsMatch(t, adaptivecard.BlockElementHeightValues(), []adaptivecard.BlockElementHeight{adaptivecard.BlockElementHeightAuto, adaptivecard.BlockElementHeightStretch})
+	assert.ElementsMatch(t, adaptivecard.BlockElementHeightStrings(), []string{"auto", "stretch"})
 }
