@@ -11,7 +11,7 @@ type Image struct {
 	BackgroundColor     string              `json:"backgroundColor"`
 	Height              interface{}         `json:"height"`
 	HorizontalAlignment HorizontalAlignment `json:"horizontalAlignment"`
-	SelectAction        SelectAction        `json:"selectAction"`
+	SelectAction        interface{}         `json:"selectAction"`
 	Size                ImageSize           `json:"size"`
 	Style               ImageStyle          `json:"style"`
 	Width               string              `json:"width"`
@@ -60,7 +60,7 @@ func WithImageHorizontalAlignment(ha HorizontalAlignment) func(*Image) {
 	}
 }
 
-func WithImageSelectAction(sa SelectAction) func(*Image) {
+func WithImageSelectAction[T SelectAction](sa T) func(*Image) {
 	return func(i *Image) {
 		i.SelectAction = sa
 	}

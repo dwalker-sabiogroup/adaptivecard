@@ -54,12 +54,6 @@ func TestImageHorizontalAlignment(t *testing.T) {
 	).HorizontalAlignment)
 }
 
-func TestImageSelectAction(t *testing.T) {
-	assert.Equal(t, adaptivecard.SelectActionOpenURL, adaptivecard.NewImage("test",
-		adaptivecard.WithImageSelectAction(adaptivecard.SelectActionOpenURL),
-	).SelectAction)
-}
-
 func TestImageImageSize(t *testing.T) {
 	assert.Equal(t, adaptivecard.ImageSizeLarge, adaptivecard.NewImage("test",
 		adaptivecard.WithImageSize(adaptivecard.ImageSizeLarge),

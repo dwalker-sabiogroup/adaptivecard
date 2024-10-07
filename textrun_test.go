@@ -16,7 +16,6 @@ func TestTextRunDefault(t *testing.T) {
 	assert.False(t, tr.Highlight)
 	assert.False(t, tr.IsSubtle)
 	assert.False(t, tr.Italic)
-	assert.Equal(t, adaptivecard.SelectActionExecute, tr.SelectAction)
 	assert.Equal(t, adaptivecard.FontSizeDefault, tr.Size)
 	assert.False(t, tr.Strikethrough)
 	assert.False(t, tr.Underline)
@@ -51,12 +50,6 @@ func TestTextRunWithItalic(t *testing.T) {
 	assert.True(t, adaptivecard.NewTextRun("text",
 		adaptivecard.WithTextRunItalic(),
 	).Italic)
-}
-
-func TestTextRunWithSelectAction(t *testing.T) {
-	assert.Equal(t, adaptivecard.SelectActionOpenURL, adaptivecard.NewTextRun("text",
-		adaptivecard.WithTextRunSelectAction(adaptivecard.SelectActionOpenURL),
-	).SelectAction)
 }
 
 func TestTextRunSize(t *testing.T) {

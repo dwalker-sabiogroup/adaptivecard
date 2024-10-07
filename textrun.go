@@ -1,18 +1,18 @@
 package adaptivecard
 
 type TextRun struct {
-	Type          string       `json:"Type"`
-	Text          string       `json:"text"`
-	Color         Color        `json:"color"`
-	FontType      FontType     `json:"fontType"`
-	Highlight     bool         `json:"highlight"`
-	IsSubtle      bool         `json:"isSubtle"`
-	Italic        bool         `json:"italic"`
-	SelectAction  SelectAction `json:"selectAction"`
-	Size          FontSize     `json:"size"`
-	Strikethrough bool         `json:"strikethrough"`
-	Underline     bool         `json:"underline"`
-	Weight        FontWeight   `json:"weight"`
+	Type          string      `json:"Type"`
+	Text          string      `json:"text"`
+	Color         Color       `json:"color"`
+	FontType      FontType    `json:"fontType"`
+	Highlight     bool        `json:"highlight"`
+	IsSubtle      bool        `json:"isSubtle"`
+	Italic        bool        `json:"italic"`
+	SelectAction  interface{} `json:"selectAction"`
+	Size          FontSize    `json:"size"`
+	Strikethrough bool        `json:"strikethrough"`
+	Underline     bool        `json:"underline"`
+	Weight        FontWeight  `json:"weight"`
 }
 
 func NewTextRun(txt string, opts ...func(*TextRun)) *TextRun {
@@ -58,7 +58,7 @@ func WithTextRunItalic() func(*TextRun) {
 	}
 }
 
-func WithTextRunSelectAction(sa SelectAction) func(*TextRun) {
+func WithTextRunSelectAction[T SelectAction](sa T) func(*TextRun) {
 	return func(tr *TextRun) {
 		tr.SelectAction = sa
 	}
