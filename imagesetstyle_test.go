@@ -9,14 +9,15 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestImageSetStyle(t *testing.T) {
+func TestImageFillMode(t *testing.T) {
 	tests := []struct {
-		input  adaptivecard.ImageSetStyle
+		input  adaptivecard.ImageFillMode
 		output string
 	}{
-		{input: adaptivecard.ImageSetStyleDefault, output: "default"},
-		{input: adaptivecard.ImageSetStyleStacked, output: "stacked"},
-		{input: adaptivecard.ImageSetStyleGrid, output: "grid"},
+		{input: adaptivecard.ImageFillModeCover, output: "cover"},
+		{input: adaptivecard.ImageFillModeRepeatHorizontally, output: "repeatHorizontally"},
+		{input: adaptivecard.ImageFillModeRepeatVertically, output: "repeatVertically"},
+		{input: adaptivecard.ImageFillModeRepeat, output: "repeat"},
 	}
 
 	for _, tc := range tests {
@@ -27,19 +28,19 @@ func TestImageSetStyle(t *testing.T) {
 		require.NoError(t, err)
 		assert.Equal(t, `"`+tc.output+`"`, string(out))
 
-		ft, err := adaptivecard.ImageSetStyleString(tc.output)
+		ft, err := adaptivecard.ImageFillModeString(tc.output)
 		require.NoError(t, err)
 		assert.Equal(t, tc.input, ft)
 
-		ft, err = adaptivecard.ImageSetStyleString(strings.ToUpper(tc.output))
+		ft, err = adaptivecard.ImageFillModeString(strings.ToUpper(tc.output))
 		require.NoError(t, err)
 		assert.Equal(t, tc.input, ft)
-		assert.True(t, ft.IsAImageSetStyle())
+		assert.True(t, ft.IsAImageFillMode())
 	}
 
-	_, err := adaptivecard.ImageSetStyleString("fake")
+	_, err := adaptivecard.ImageFillModeString("fake")
 	require.Error(t, err)
 
-	assert.ElementsMatch(t, adaptivecard.ImageSetStyleValues(), []adaptivecard.ImageSetStyle{adaptivecard.ImageSetStyleDefault, adaptivecard.ImageSetStyleStacked, adaptivecard.ImageSetStyleGrid})
-	assert.ElementsMatch(t, adaptivecard.ImageSetStyleStrings(), []string{"stacked", "default", "grid"})
+	assert.ElementsMatch(t, adaptivecard.ImageFillModeValues(), []adaptivecard.ImageFillMode{adaptivecard.ImageFillModeCover, adaptivecard.ImageFillModeRepeatHorizontally, adaptivecard.ImageFillModeRepeatVertically, adaptivecard.ImageFillModeRepeat})
+	assert.ElementsMatch(t, adaptivecard.ImageFillModeStrings(), []string{"cover", "repeat", "repeatVertically", "repeatHorizontally"})
 }
